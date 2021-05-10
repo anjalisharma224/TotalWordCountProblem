@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,14 +23,13 @@ public class TotalWordCounts {
             String arr[] = s.toLowerCase().split(" ");
             for(String word: arr)
             {
-                if(hashMap.containsKey(word))
-                {
-                    int count=hashMap.get(word);
-                    hashMap.put(word,count+1);
-                }
-                else
-                {
-                    hashMap.put(word,1);
+                if(word.length()>0) {
+                    if (hashMap.containsKey(word)) {
+                        int count = hashMap.get(word);
+                        hashMap.put(word, count + 1);
+                    } else {
+                        hashMap.put(word, 1);
+                    }
                 }
             }
         }
@@ -89,7 +89,8 @@ public class TotalWordCounts {
 
 
     public static void main(String[] args) throws Exception {
-        String filename = "src/passage.txt";
+        File file=new File("src/passage.txt");
+        String filename = file.getAbsolutePath();
 
         HashMap<String, Integer> hashMap = wordCounts(filename);
 
@@ -108,7 +109,7 @@ public class TotalWordCounts {
 
 
         if(lastsentence.length()>1)
-            System.out.println("last sentence that contains all top words are: \n"+lastsentence);
+            System.out.println("last sentence that contains top word are: \n"+lastsentence);
         else
             System.out.println("No such sentence found");
     }
